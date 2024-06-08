@@ -1,0 +1,13 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ServicesProvider.Models
+{
+    public class RequestStatus
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public List<Request> Requests { get; set; }
+    }
+}
