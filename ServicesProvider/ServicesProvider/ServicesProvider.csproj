@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Provider\Controllers\" />
-    <Folder Include="Areas\Provider\Views\" />
-    <Folder Include="Areas\Client\Controllers\" />
-    <Folder Include="Areas\Client\Views\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />

@@ -18,14 +18,12 @@ namespace ServicesProvider.Services
         private readonly IPasswordHasher _passwordHasher;
         private readonly IJwtProvider _jwtProvider;
         private readonly IConfiguration _configuration;
-        //private readonly AuthorizationHandlerContext _authorizationHandlerContext;
         public UsersService(ApplicationDbContext context, IPasswordHasher passwordHasher, IJwtProvider jwtProvider, IConfiguration configuration)
         {
             _dbContext = context;
             _passwordHasher = passwordHasher;
             _jwtProvider = jwtProvider;
             _configuration = configuration;
-            //_authorizationHandlerContext = authorizationHandlerContext;
         }
 
         public async Task<StatusCode> Register(string email, string password)
