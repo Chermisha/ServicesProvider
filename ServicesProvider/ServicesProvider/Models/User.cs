@@ -28,8 +28,8 @@ namespace ServicesProvider.Models
 
         public UserRole Role { get; set; }//УБРАТЬ ПОЛЯ НИЖЕ?
 
-        public List<Request> Requests { get; set; }
+        //public List<Request> Requests { get; set; }
 
-        public List<Contract> Contracts { get; set; }
+        //public List<Contract> Contracts { get; set; }
     }
 }

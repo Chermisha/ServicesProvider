@@ -75,6 +75,8 @@ namespace ServicesProvider.Services
         {
             var userEntity = _dbContext.Users
                 .Include(u => u.Role)
+                .Include(u => u.Requests)
+                .Include(u => u.Contracts)
                 .FirstOrDefault(u => u.Id == id);
 
             if (userEntity == null)
@@ -88,11 +90,17 @@ namespace ServicesProvider.Services
                     Id = userEntity.Id,
                     Email = userEntity.Email,
                     Password = userEntity.Password,
-                    Role = (UserRole)userEntity.Role.Id
-                    //ToDo добавить логику по остальным свойствам?
+                    Role = (UserRole)userEntity.Role.Id,
+                    LastName = userEntity.LastName,
+                    FirstName = userEntity.FirstName,
+                    MiddleName = userEntity.MiddleName,
+                    DateOfBirth = userEntity.DateOfBirth,
+                    Address = userEntity.Address,
+                    Phone = userEntity.Phone
                 };
+                //ToDo добавить логику по остальным свойствам?
                 return user;
-            };
+            }
         }
 
         //private async Task Authorize()

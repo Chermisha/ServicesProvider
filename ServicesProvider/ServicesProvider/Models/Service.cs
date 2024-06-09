@@ -13,8 +13,6 @@ namespace ServicesProvider.Models
 
         public decimal Price { get; set; }
 
-        public int CategoryId { get; set; }
-
         public ServiceCategory? Category { get; set; }
 
         public List<Contract> Contracts { get; set; }

@@ -15,11 +15,11 @@ namespace ServicesProvider.Services
     //        _context = context;
     //    }
 
-    //    public async Task<List<Request>> GetAllRequests()
-    //    {
-    //        var requestEntity = await _context.Requests
-    //            .AsNoTracking()
-    //            .ToListAsync();
+        public async Task<List<Request>> GetAllRequests()
+        {
+            var requestEntity = await _context.Requests
+                .AsNoTracking()
+                .ToListAsync();
 
 
     //        var requests = requestEntity
