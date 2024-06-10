@@ -1,0 +1,36 @@
+﻿@model List<ServicesProvider.Models.ServiceViewModel>
+
+@{
+    ViewData["Title"] = "Service list";
+    ViewData["Role"] = "Client";
+}
+
+<h1>Список услуг</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Название</th>
+            <th>Описание</th>
+            <th>Цена</th>
+            <th>Категория</th>
+            <th>Оформить заявку</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var service in Model)//ToDO изменить контроллер на кнопке
+        {
+            <tr>
+                <td>@service.Name</td>
+                <td>@service.Description</td>
+                <td>@service.Price</td>
+                <td>@service.Category</td>
+                <td>
+                    <a asp-controller="Orders" asp-action="Create" asp-route-serviceId="@service.Id" class="btn btn-primary">
+                        Оформить заявку
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

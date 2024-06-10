@@ -1,0 +1,37 @@
+﻿﻿@using ServicesProvider.Models;
+@model RegisterViewModel;
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Авторизация</h1>
+        <form asp-controller="Users" asp-action="Login">
+            <div class="form-group">
+                <label asp-for="Email" class="control-label">Email:</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label">Пароль:</label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Войти</button>
+            </div>
+        </form>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/validation.js" asp-append-version="true"></script>
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+</body>
+</html>
