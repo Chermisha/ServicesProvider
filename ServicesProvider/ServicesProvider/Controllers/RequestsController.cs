@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ServicesProvider.Models;
-using ServicesProvider.Services;
+using ServicesProvider.Domain.Models;
+using ServicesProvider.Application.Services;
 
 namespace ServicesProvider.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class RequestsController : ControllerBase
+    public class RequestsController : Controller
     {
         private readonly IRequestsService _requestsService;
 

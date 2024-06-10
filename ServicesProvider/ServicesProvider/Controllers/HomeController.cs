@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using ServicesProvider.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication1.Controllers
 {
@@ -18,9 +19,18 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        [Authorize(Policy = "ClientPolicy")]
+        public async Task<ActionResult> Client()
         {
-            return View();
+            return View("Client");
+        }
+
+        [HttpGet]
+        [Authorize(Policy = "ProviderPolicy")]
+        public async Task<ActionResult> Provider()
+        {
+            return View("Provider");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

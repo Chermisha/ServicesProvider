@@ -1,15 +1,15 @@
-using ServicesProvider.Data;
+using ServicesProvider.Persistence;
 using Microsoft.EntityFrameworkCore;
-using ServicesProvider.Services;
+using ServicesProvider.Application.Services;
 using Microsoft.OpenApi.Models;
-using ServicesProvider.Auth;
+using ServicesProvider.Application.Auth;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.CookiePolicy;
-using ServicesProvider.Enums;
+using ServicesProvider.Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -74,6 +74,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 
 builder.Services.AddScoped<IRequestsService, RequestsService>();
 builder.Services.AddScoped<IUsersService, UsersService>();
+builder.Services.AddScoped<IServicesService, ServicesService>();
 
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
