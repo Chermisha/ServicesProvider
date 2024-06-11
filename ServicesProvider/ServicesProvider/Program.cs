@@ -11,6 +11,7 @@ using System.Text;
 using Microsoft.AspNetCore.CookiePolicy;
 using ServicesProvider.Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
+using ServicesProvider.Domain.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -75,6 +76,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 builder.Services.AddScoped<IRequestsService, RequestsService>();
 builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddScoped<IServicesService, ServicesService>();
+builder.Services.AddScoped<IServiceCategoriesService, ServiceCategoriesService>();
 
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
