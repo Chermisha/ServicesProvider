@@ -21,14 +21,14 @@ namespace WebApplication1.Controllers
 
         [HttpGet]
         [Authorize(Policy = "ClientPolicy")]
-        public async Task<ActionResult> Client()
+        public IActionResult Client()
         {
             return View("Client");
         }
 
         [HttpGet]
         [Authorize(Policy = "ProviderPolicy")]
-        public async Task<ActionResult> Provider()
+        public IActionResult Provider()
         {
             return View("Provider");
         }

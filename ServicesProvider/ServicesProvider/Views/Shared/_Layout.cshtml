@@ -34,7 +34,7 @@
                         @if (ViewData["Role"] == "Client")
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Services" asp-action="AllServices">Услуги</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Services" asp-action="GetAllServices">Услуги</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Logout">Выйти</a>
@@ -44,7 +44,7 @@
                         else if (ViewData["Role"] == "Provider")
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Services" asp-action="AllServices">Услуги</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="GetAllCategories">Категории услуг</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Logout">Выйти</a>

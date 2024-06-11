@@ -14,14 +14,12 @@ namespace ServicesProvider.Application.Services
             _dbContext = dbContext;
         }
 
-        public async Task<List<Service>> GetAllService()
+        public async Task<List<Service>> GetAllServices()
         {
             var servicesEntity = await _dbContext.Services
-                .Include(s=> s.Category)
+                .Include(s => s.Category)
                 .AsNoTracking()
                 .ToListAsync();
-
-
 
             var services = servicesEntity
                 .Select(s => new Service
@@ -37,7 +35,6 @@ namespace ServicesProvider.Application.Services
                     }
                 }).ToList();
 
-
             return services;
         }
 
@@ -45,7 +42,6 @@ namespace ServicesProvider.Application.Services
         {
             try
             {
-
                 var serviceEntity = await _dbContext.Services
                     .AsNoTracking()
                     .FirstOrDefaultAsync(s => s.Id == id);
@@ -72,64 +68,55 @@ namespace ServicesProvider.Application.Services
 
         }
 
-        public async Task AddService(Service service)
+        public async Task AddService(string name, string? description, decimal price, int categoryId)
         {
+            var categoryEntity = await _dbContext.ServiceCategories
+                .AsNoTracking()
+                .FirstOrDefaultAsync(sc => sc.Id == categoryId);
+
             var serviceEntity = new ServiceEntity
             {
-                Id = service.Id,
-                Name = service.Name,
-                Description = service.Description,
-                Price = service.Price,
+                Name = name,
+                Description = description,
+                Price = price,
                 Category = new ServiceCategoryEntity
                 {
-                    Id = service.Category.Id,
-                    Name = service.Category.Name
+                    Id = categoryEntity.Id,
+                    Name = categoryEntity.Name
                 }
             };
 
             await _dbContext.Services.AddAsync(serviceEntity);
         }
 
-        public async Task<ResponseBase<Service>> UpdateService(int id, Service service)
+        public async Task<ResponseBase<Service>> UpdateService(int id, string name, string? description, decimal price, int categoryId)
         {
-            var serviceToUpdate = await _dbContext.Services
+            var entityToUpdate = await _dbContext.Services
                 .Include(s => s.Category)
                 .FirstOrDefaultAsync(s => s.Id == id);
 
-            if (serviceToUpdate == null)
+            if (entityToUpdate == null)
             {
                 return new ResponseBase<Service>(1, "Услуга не найдена");
             }
 
-            serviceToUpdate.Name = service.Name;
-            serviceToUpdate.Description = service.Description;
-            serviceToUpdate.Price = service.Price;
-
-            if (service.Category != null && service.Category.Id != 0)
-            {
-                var category = await _dbContext.ServiceCategories.FindAsync(service.Category.Id);
-                if (category != null)
-                {
-                    serviceToUpdate.Category = category;
-                }
-            }
-            else
-            {
-                serviceToUpdate.Category = null;
-            }
+            entityToUpdate.Name = name;
+            entityToUpdate.Description = description ?? string.Empty;
+            entityToUpdate.Price = price;
+            entityToUpdate.CategoryId = categoryId;
 
             await _dbContext.SaveChangesAsync();
 
             var updatedService = new Service
             {
-                Id = serviceToUpdate.Id,
-                Name = serviceToUpdate.Name,
-                Description = serviceToUpdate.Description,
-                Price = serviceToUpdate.Price,
+                Id = entityToUpdate.Id,
+                Name = entityToUpdate.Name,
+                Description = entityToUpdate.Description,
+                Price = entityToUpdate.Price,
                 Category = new ServiceCategory
                 {
-                    Id = serviceToUpdate.Id,
-                    Name = serviceToUpdate.Name
+                    Id = entityToUpdate.Id,
+                    Name = entityToUpdate.Name
                 }
             };
 
