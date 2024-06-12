@@ -48,7 +48,8 @@ namespace ServicesProvider.Controllers
             var category = (await _categoriesService.GetServiceCategoryById(id)).Data;
             var categoryViewModel = new CategoryViewModel 
             { 
-                Id = category.Id, Name = category.Name
+                Id = category.Id, 
+                Name = category.Name
             };
             return View(categoryViewModel);
         }

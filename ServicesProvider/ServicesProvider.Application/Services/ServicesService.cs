@@ -43,14 +43,19 @@ namespace ServicesProvider.Application.Services
             try
             {
                 var serviceEntity = await _dbContext.Services
+                    .Include(s => s.Category)
                     .AsNoTracking()
                     .FirstOrDefaultAsync(s => s.Id == id);
+                if (serviceEntity == null)
+                {
+                    return null;
+                }
 
                 var service = new Service
                 {
                     Id = serviceEntity.Id,
                     Name = serviceEntity.Name,
-                    Description = serviceEntity.Description,
+                    Description = serviceEntity.Description ?? string.Empty,
                     Price = serviceEntity.Price,
                     Category = new ServiceCategory
                     {
@@ -71,22 +76,18 @@ namespace ServicesProvider.Application.Services
         public async Task AddService(string name, string? description, decimal price, int categoryId)
         {
             var categoryEntity = await _dbContext.ServiceCategories
-                .AsNoTracking()
                 .FirstOrDefaultAsync(sc => sc.Id == categoryId);
 
             var serviceEntity = new ServiceEntity
             {
                 Name = name,
-                Description = description,
+                Description = description ?? string.Empty,
                 Price = price,
-                Category = new ServiceCategoryEntity
-                {
-                    Id = categoryEntity.Id,
-                    Name = categoryEntity.Name
-                }
+                Category = categoryEntity
             };
 
             await _dbContext.Services.AddAsync(serviceEntity);
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<ResponseBase<Service>> UpdateService(int id, string name, string? description, decimal price, int categoryId)
@@ -100,10 +101,20 @@ namespace ServicesProvider.Application.Services
                 return new ResponseBase<Service>(1, "Услуга не найдена");
             }
 
+            bool isNewCategory = entityToUpdate.Category?.Id != categoryId;
+
             entityToUpdate.Name = name;
             entityToUpdate.Description = description ?? string.Empty;
             entityToUpdate.Price = price;
-            entityToUpdate.CategoryId = categoryId;
+
+            if (isNewCategory)
+            {
+                var categoryEntity = await _dbContext.ServiceCategories
+                .AsNoTracking()
+                .FirstOrDefaultAsync(c => c.Id == categoryId);
+
+                entityToUpdate.Category = categoryEntity;
+            }
 
             await _dbContext.SaveChangesAsync();
 
