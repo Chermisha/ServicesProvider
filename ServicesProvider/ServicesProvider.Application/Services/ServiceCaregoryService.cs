@@ -20,6 +20,10 @@ namespace ServicesProvider.Application.Services
             var serviceCategoryEntity = await _dbContext.ServiceCategories
                 .AsNoTracking()
                 .ToListAsync();
+            if (serviceCategoryEntity == null)
+            {
+                return null;
+            }
 
             var serviceCategories = serviceCategoryEntity
                 .Select(sc => new ServiceCategory

@@ -8,7 +8,7 @@ namespace ServicesProvider.Models
         [Required]
         public required int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле 'Название' обязательно для заполнения")]
         [Display(Name = "Название")]
         public required string Name { get; set; }
     }
